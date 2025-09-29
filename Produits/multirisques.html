@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Riskalia — Multirisques Entreprise (Commercial Property & BI)</title>
+  <meta name="description" content="Assurance multirisques entreprise : biens, pertes d’exploitation (PDB), incendie, dégâts des eaux, vol, bris de machines, événements climatiques. Ingénierie de risque, évaluations & prévention."/>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml"/>
+
+  <!-- Fonts + global CSS -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css"/>
+
+  <style>
+    /* Hero visuel pour produit */
+    .hero--product{
+      min-height:42vh;
+      background:
+        linear-gradient(rgba(0,92,115,.85),rgba(0,92,115,.85)),
+        url('https://images.unsplash.com/photo-1487956382158-bb926046304a?auto=format&fit=crop&w=1600&q=70')
+        center/cover no-repeat;
+      display:flex; align-items:center; text-align:center;
+    }
+    .hero--product h1{ color:#fff; font-size:clamp(1.9rem,3.6vw,3.1rem); }
+    .hero--product p{ color:#fff; opacity:.98; max-width:980px; margin:6px auto 0; }
+
+    /* Onglets horizontaux collants */
+    .main--single{ display:block; }
+    .tabs.sticky{
+      position:sticky; top:72px; z-index:30;
+      background:#fff; padding:8px; border:1px solid #e2edf2; border-radius:14px;
+      overflow:auto; white-space:nowrap; box-shadow:var(--shadow);
+      margin-bottom:14px;
+    }
+    .tabs .tab{ flex:0 0 auto; }
+    .tabpanel{ display:none; }
+    .tabpanel.active{ display:block; }
+
+    .grid-2x1{ display:grid; grid-template-columns:2fr 1fr; gap:18px; }
+    @media(max-width:900px){ .grid-2x1{ grid-template-columns:1fr; } }
+
+    .list-check{ padding-inline-start:18px; }
+    .list-check li{ margin:6px 0; }
+
+    /* Encarts KPI */
+    .kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:10px}
+    .kpi .p{background:#f8fbfc;border:1px solid #e2edf2;border-radius:12px;padding:12px}
+    .kpi .v{font-weight:900;color:#0b5562}
+
+    /* Mobile confort */
+    @media(max-width:600px){
+      .tabs.sticky{ top:66px; padding:6px; }
+      .tab{ padding:10px 12px; }
+      .hero--product{ min-height:36vh; }
+    }
+  </style>
+
+  <noscript><style>.tabpanel{display:block}.reveal{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body class="spacious">
+<header>
+  <div class="container nav-wrap">
+    <a class="brand" href="../index.html">
+      <img src="https://static.wixstatic.com/media/3cd6af_09896cec98fb4c77b6372c04da311cfd~mv2.jpg" alt="Riskalia"><span></span>
+    </a>
+    <nav aria-label="Navigation principale">
+      <span class="menu-toggle" aria-label="Menu">☰</span>
+      <ul id="menu">
+        <li><a href="../index.html" data-i18n="nav.home">Accueil</a></li>
+        <li><a href="../solutions.html" class="active" data-i18n="nav.solutions">Solutions</a></li>
+        <li><a href="../reinsurance.html" data-i18n="nav.re">Réassurance</a></li>
+        <li><a href="../climate.html" data-i18n="nav.climate">Risques Climatiques</a></li>
+        <li><a href="../esg.html" data-i18n="nav.esg">ESG</a></li>
+        <li><a href="../contact.html" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="fr">Français</button>
+      <button class="lang-btn" data-lang="en">English</button>
+      <button class="lang-btn" data-lang="ar">عربية</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero hero--product">
+  <div class="container">
+    <h1 data-i18n="title">Multirisques Entreprise</h1>
+    <p data-i18n="subtitle">Biens & Pertes d’exploitation • Incendie & dégâts des eaux • Vol & bris de machines • Événements climatiques & CatNat • Ingénierie de risque & prévention.</p>
+    <div class="badges" style="margin-top:12px">
+      <span class="badge" data-i18n="badges.0">Bâtiments, stocks, équipements</span>
+      <span class="badge" data-i18n="badges.1">Pertes d’exploitation (PDB)</span>
+      <span class="badge" data-i18n="badges.2">Prévention & conformité</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section class="reveal">
+  <div class="container main main--single">
+
+    <!-- Onglets -->
+    <nav class="tabs sticky" role="tablist" aria-label="Multirisques tabs">
+      <button class="tab active"  id="tab-over" role="tab" aria-selected="true"  data-tab="over" data-i18n="tabs.over">Aperçu</button>
+      <button class="tab"         id="tab-cov"  role="tab" aria-selected="false" data-tab="cov"  data-i18n="tabs.cov">Couvertures</button>
+      <button class="tab"         id="tab-opt"  role="tab" aria-selected="false" data-tab="opt"  data-i18n="tabs.opt">Options & prévention</button>
+      <button class="tab"         id="tab-admin"role="tab" aria-selected="false" data-tab="admin"data-i18n="tabs.admin">Tarification & mise en place</button>
+      <button class="tab"         id="tab-claim"role="tab" aria-selected="false" data-tab="claim"data-i18n="tabs.claim">Sinistres</button>
+      <button class="tab"         id="tab-faq"  role="tab" aria-selected="false" data-tab="faq"  data-i18n="tabs.faq">FAQ</button>
+    </nav>
+
+    <!-- Aperçu -->
+    <article id="over" class="card tabpanel active" role="tabpanel" aria-labelledby="tab-over">
+      <h2 data-i18n="over.t">1. Aperçu</h2>
+      <div class="grid-2x1 mt-1">
+        <div>
+          <p class="muted" data-i18n="over.p">
+            Le contrat <strong>multirisques entreprise</strong> protège vos bâtiments, contenus et responsabilités indirectes via la <strong>perte d’exploitation (PDB)</strong>. Nous combinons placement compétitif, <em>ingénierie de risque</em>, et calibrage des franchises/limites pour équilibrer protection et budget.
+          </p>
+          <ul class="list-check">
+            <li data-i18n="over.li.0">Cartographie des sites & expositions (incendie, eau, vol, météo).</li>
+            <li data-i18n="over.li.1">Paramétrage PDB : marge brute, période d’indemnisation (12–24–36 mois).</li>
+            <li data-i18n="over.li.2">Prévention pragmatique : détection, compartimentage, maintenance.</li>
+          </ul>
+        </div>
+        <div class="kpi">
+          <div class="p"><div class="v" data-i18n="over.kpi.0">Capacité</div><div>Jusqu’à la capacité marché</div></div>
+          <div class="p"><div class="v" data-i18n="over.kpi.1">Période BI</div><div>12–36 mois</div></div>
+          <div class="p"><div class="v" data-i18n="over.kpi.2">Ingénierie</div><div>Visites & recommandations</div></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Couvertures -->
+    <article id="cov" class="card tabpanel" role="tabpanel" aria-labelledby="tab-cov">
+      <h2 data-i18n="cov.t">2. Couvertures principales</h2>
+      <div class="grid mt-2">
+        <section class="card">
+          <h3 data-i18n="cov.c0.t">Biens</h3>
+          <ul>
+            <li data-i18n="cov.c0.li.0">Incendie, explosion, chute de foudre, fumées.</li>
+            <li data-i18n="cov.c0.li.1">Dégâts des eaux, tempête/grêle/inondation, CatNat.</li>
+            <li data-i18n="cov.c0.li.2">Vol, vandalisme, bris de glaces et enseignes.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h3 data-i18n="cov.c1.t">Pertes d’exploitation (PDB)</h3>
+          <ul>
+            <li data-i18n="cov.c1.li.0">Marge brute, frais supplémentaires d’exploitation.</li>
+            <li data-i18n="cov.c1.li.1">Période d’indemnisation 12–36 mois.</li>
+            <li data-i18n="cov.c1.li.2">Dommages de fournisseurs/clients clés (contingent BI).</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h3 data-i18n="cov.c2.t">Machines & utilités</h3>
+          <ul>
+            <li data-i18n="cov.c2.li.0">Bris de machines & électroniques.</li>
+            <li data-i18n="cov.c2.li.1">Pannes utilités (énergie, vapeur, froid) selon options.</li>
+            <li data-i18n="cov.c2.li.2">Frais de remise en conformité (codes, normes).</li>
+          </ul>
+        </section>
+      </div>
+    </article>
+
+    <!-- Options & prévention -->
+    <article id="opt" class="card tabpanel" role="tabpanel" aria-labelledby="tab-opt">
+      <h2 data-i18n="opt.t">3. Options & prévention</h2>
+      <div class="grid mt-2">
+        <section class="card">
+          <h3 data-i18n="opt.c0.t">Climat & CatNat</h3>
+          <ul>
+            <li data-i18n="opt.c0.li.0">Extensions tempête, grêle, inondation, submersion.</li>
+            <li data-i18n="opt.c0.li.1">Franchises différenciées par site & exposition.</li>
+            <li data-i18n="opt.c0.li.2">Couvertures paramétriques météo (en option).</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h3 data-i18n="opt.c1.t">Prévention & ingénierie</h3>
+          <ul>
+            <li data-i18n="opt.c1.li.0">Audits sites, thermographie, essais sprinkler.</li>
+            <li data-i18n="opt.c1.li.1">Plan d’actions priorisé & suivi trimestriel.</li>
+            <li data-i18n="opt.c1.li.2">Guides continuité d’activité (BCP) & scénarios.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h3 data-i18n="opt.c2.t">Paramètres de police</h3>
+          <ul>
+            <li data-i18n="opt.c2.li.0">Sommes assurées & indexation, valeur à neuf.</li>
+            <li data-i18n="opt.c2.li.1">Sous-limites : marchandises réfrigérées, archives, données.</li>
+            <li data-i18n="opt.c2.li.2">Clauses de coassurance & stop-loss selon profil.</li>
+          </ul>
+        </section>
+      </div>
+    </article>
+
+    <!-- Tarification & mise en place -->
+    <article id="admin" class="card tabpanel" role="tabpanel" aria-labelledby="tab-admin">
+      <h2 data-i18n="admin.t">4. Tarification & mise en place</h2>
+      <div class="grid mt-2">
+        <section class="card">
+          <h3 data-i18n="admin.c0.t">Données requises</h3>
+          <ul>
+            <li data-i18n="admin.c0.li.0">Liste des sites : adresse, activité, construction, protections.</li>
+            <li data-i18n="admin.c0.li.1">Sommes assurées par rubrique (bâtiments, contenu, stocks).</li>
+            <li data-i18n="admin.c0.li.2">Marge brute & période BI souhaitée.</li>
+            <li data-i18n="admin.c0.li.3">Sinistralité 5 ans (fréquence & sévérité).</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h3 data-i18n="admin.c1.t">Processus</h3>
+          <ul>
+            <li data-i18n="admin.c1.li.0">Pré-audit & recommandation de limites/franchises.</li>
+            <li data-i18n="admin.c1.li.1">Mise en concurrence & négociation des clauses clés.</li>
+            <li data-i18n="admin.c1.li.2">Binders, attestations et calendrier prévention.</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h3 data-i18n="admin.c2.t">Documents utiles</h3>
+          <ul>
+            <li data-i18n="admin.c2.li.0">Plans & schémas de procédés, nomenclature machines.</li>
+            <li data-i18n="admin.c2.li.1">Rapports maintenance & conformité (sprinklers, élec.).</li>
+            <li data-i18n="admin.c2.li.2">Plan de continuité (BCP) & procédures d’urgence.</li>
+          </ul>
+        </section>
+      </div>
+    </article>
+
+    <!-- Sinistres -->
+    <article id="claim" class="card tabpanel" role="tabpanel" aria-labelledby="tab-claim">
+      <h2 data-i18n="claim.t">5. Gestion des sinistres</h2>
+      <details class="mt-1">
+        <summary>🧭 <span data-i18n="claim.sum">Notre approche</span></summary>
+        <div>
+          <ul>
+            <li data-i18n="claim.li.0">Cellule d’urgence 24/7, mesures conservatoires & experts agréés.</li>
+            <li data-i18n="claim.li.1">Estimation rapide BI & avances si prévu.</li>
+            <li data-i18n="claim.li.2">Reporting & retour d’expérience pour réduire la récidive.</li>
+          </ul>
+        </div>
+      </details>
+    </article>
+
+    <!-- FAQ -->
+    <article id="faq" class="card tabpanel" role="tabpanel" aria-labelledby="tab-faq">
+      <h2 data-i18n="faq.t">6. FAQ</h2>
+      <details class="mt-1">
+        <summary>❓ <span data-i18n="faq.q0">Comment fixer la période d’indemnisation BI ?</span></summary>
+        <div><p class="muted" data-i18n="faq.a0">Selon les cycles d’approvisionnement, de production et de ventes. Beaucoup d’industries nécessitent 18–24 mois.</p></div>
+      </details>
+      <details>
+        <summary>❓ <span data-i18n="faq.q1">Paramétriques climatiques ou garanties classiques ?</span></summary>
+        <div><p class="muted" data-i18n="faq.a1">Les paramétriques déclenchent sur un indice (pluie, vent…). Ils complètent utilement les garanties dommages/PDB pour réduire les délais.</p></div>
+      </details>
+      <details>
+        <summary>❓ <span data-i18n="faq.q2">Quelle valeur assurer (neuf, vétusté, valeur déclarée) ?</span></summary>
+        <div><p class="muted" data-i18n="faq.a2">La valeur à neuf limite la sous-assurance mais peut coûter plus. Nous calibrons au cas par cas avec des évaluations.</p></div>
+      </details>
+    </article>
+
+    <!-- CTA -->
+    <article class="card center" style="margin-top:14px">
+      <h3 data-i18n="cta.t">Sécurisons vos actifs et votre continuité</h3>
+      <p class="muted" data-i18n="cta.p">Nous calibrons Biens & PDB, les options climat et un plan de prévention pragmatique.</p>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <a class="btn" href="../contact.html" data-i18n="cta.quote">Obtenir un devis</a>
+        <a class="btn secondary" href="../contact.html" data-i18n="cta.talk">Parler à un conseiller</a>
+      </div>
+    </article>
+
+    <!-- Liens produits (précédent/suivant) -->
+    <article class="card center" style="margin-top:10px">
+      <p class="muted">
+        <a class="link" href="./santecollective.html">← <span data-i18n="nav.prev">Santé collective & Prévoyance</span></a>
+        &nbsp;|&nbsp;
+        <a class="link" href="./transport.html"><span data-i18n="nav.next">Transport (marchandises)</span> →</a>
+      </p>
+    </article>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <h4>Riskalia</h4>
+      <p class="muted" data-i18n="footer.desc" style="color:white;">Cabinet de courtage & réassurance agréé ACAPS<br/>Siège : [adresse complète]<br/>N° agrément : [à compléter]</p>
+    </div>
+    <div>
+      <h4 data-i18n="footer.links">Liens</h4>
+      <p>
+        <a href="../solutions.html" data-i18n="nav.solutions">Solutions</a><br/>
+        <a href="../reinsurance.html" data-i18n="nav.re">Réassurance</a><br/>
+        <a href="../climate.html" data-i18n="nav.climate">Risques Climatiques</a><br/>
+        <a href="../esg.html" data-i18n="nav.esg">ESG</a>
+      </p>
+    </div>
+    <div>
+      <h4 data-i18n="footer.contact">Contact</h4>
+      <p>Email : <a href="mailto:contact@riskalia.ma">contact@riskalia.ma</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- FAQ SEO -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Comment fixer la période d’indemnisation BI ?","acceptedAnswer":{"@type":"Answer","text":"Selon les cycles d’approvisionnement, de production et de ventes. Beaucoup d’industries nécessitent 18–24 mois."}},
+{"@type":"Question","name":"Paramétriques climatiques ou garanties classiques ?","acceptedAnswer":{"@type":"Answer","text":"Les paramétriques déclenchent sur un indice (pluie, vent…). Ils complètent utilement les garanties dommages/PDB pour réduire les délais."}},
+{"@type":"Question","name":"Quelle valeur assurer ?","acceptedAnswer":{"@type":"Answer","text":"La valeur à neuf limite la sous-assurance mais peut coûter plus. Calibrage au cas par cas avec évaluations."}}
+]}
+</script>
+
+<script>
+/* ================== I18N ================== */
+const I18N={
+  fr:{
+    nav:{home:"Accueil",solutions:"Solutions",re:"Réassurance",climate:"Risques Climatiques",esg:"ESG",contact:"Contact",prev:"Santé collective & Prévoyance",next:"Transport (marchandises)"},
+    title:"Multirisques Entreprise",
+    subtitle:"Biens & Pertes d’exploitation • Incendie & dégâts des eaux • Vol & bris de machines • Événements climatiques & CatNat • Ingénierie de risque & prévention.",
+    badges:["Bâtiments, stocks, équipements","Pertes d’exploitation (PDB)","Prévention & conformité"],
+    tabs:{over:"Aperçu",cov:"Couvertures",opt:"Options & prévention",admin:"Tarification & mise en place",claim:"Sinistres",faq:"FAQ"},
+    over:{t:"1. Aperçu",p:"Le contrat multirisques entreprise protège vos bâtiments, contenus et responsabilités indirectes via la perte d’exploitation (PDB). Nous combinons placement compétitif, ingénierie de risque, et calibrage des franchises/limites pour équilibrer protection et budget.",
+          li:["Cartographie des sites & expositions (incendie, eau, vol, météo).","Paramétrage PDB : marge brute, période d’indemnisation (12–24–36 mois).","Prévention pragmatique : détection, compartimentage, maintenance."],
+          kpi:["Capacité","Période BI","Ingénierie"]},
+    cov:{t:"2. Couvertures principales",
+         c0:{t:"Biens",li:["Incendie, explosion, foudre, fumées.","Dégâts des eaux, tempête/grêle/inondation, CatNat.","Vol, vandalisme, bris de glaces et enseignes."]},
+         c1:{t:"Pertes d’exploitation (PDB)",li:["Marge brute, frais supplémentaires d’exploitation.","Période d’indemnisation 12–36 mois.","Dommages de fournisseurs/clients (contingent BI)."]},
+         c2:{t:"Machines & utilités",li:["Bris de machines & électroniques.","Pannes utilités (énergie, vapeur, froid) selon options.","Frais de remise en conformité (codes, normes)."]}},
+    opt:{t:"3. Options & prévention",
+         c0:{t:"Climat & CatNat",li:["Extensions tempête, grêle, inondation, submersion.","Franchises différenciées par site & exposition.","Couvertures paramétriques météo (en option)."]},
+         c1:{t:"Prévention & ingénierie",li:["Audits sites, thermographie, essais sprinkler.","Plan d’actions priorisé & suivi trimestriel.","Guides continuité d’activité (BCP) & scénarios."]},
+         c2:{t:"Paramètres de police",li:["Sommes assurées & indexation, valeur à neuf.","Sous-limites : marchandises réfrigérées, archives, données.","Clauses de coassurance & stop-loss selon profil."]}},
+    admin:{t:"4. Tarification & mise en place",
+         c0:{t:"Données requises",li:["Liste des sites : adresse, activité, construction, protections.","Sommes assurées par rubrique (bâtiments, contenu, stocks).","Marge brute & période BI souhaitée.","Sinistralité 5 ans (fréquence & sévérité)."]},
+         c1:{t:"Processus",li:["Pré-audit & recommandation de limites/franchises.","Mise en concurrence & négociation des clauses clés.","Binders, attestations et calendrier prévention."]},
+         c2:{t:"Documents utiles",li:["Plans & schémas de procédés, nomenclature machines.","Rapports maintenance & conformité (sprinklers, élec.).","Plan de continuité (BCP) & procédures d’urgence."]}},
+    claim:{t:"5. Gestion des sinistres",sum:"Notre approche",li:["Cellule d’urgence 24/7, mesures conservatoires & experts agréés.","Estimation rapide BI & avances si prévu.","Reporting & retour d’expérience pour réduire la récidive."]},
+    faq:{t:"6. FAQ",q0:"Comment fixer la période d’indemnisation BI ?",a0:"Selon les cycles d’approvisionnement, de production et de ventes. Beaucoup d’industries nécessitent 18–24 mois.",
+         q1:"Paramétriques climatiques ou garanties classiques ?",a1:"Les paramétriques déclenchent sur un indice (pluie, vent…). Ils complètent utilement les garanties dommages/PDB pour réduire les délais.",
+         q2:"Quelle valeur assurer (neuf, vétusté, valeur déclarée) ?",a2:"La valeur à neuf limite la sous-assurance mais peut coûter plus. Nous calibrons au cas par cas avec des évaluations."},
+    cta:{t:"Sécurisons vos actifs et votre continuité",p:"Nous calibrons Biens & PDB, les options climat et un plan de prévention pragmatique.",
+         quote:"Obtenir un devis",talk:"Parler à un conseiller"},
+    footer:{contact: "Coordonnées",links: "Liens",desc:"Cabinet de courtage & réassurance agréé ACAPS<br/>Siège : [adresse complète]<br/>N° agrément : [à compléter]"}
+  },
+
+  en:{
+    nav:{home:"Home",solutions:"Solutions",re:"Reinsurance",climate:"Climate Risk",esg:"ESG",contact:"Contact",prev:"Group Health & Benefits",next:"Cargo / Transport"},
+    title:"Commercial Property & Business Interruption",
+    subtitle:"Property & BI • Fire & water damage • Theft & machinery breakdown • NatCat & weather perils • Risk engineering & prevention.",
+    badges:["Buildings, stock, equipment","Business Interruption (BI)","Prevention & compliance"],
+    tabs:{over:"Overview",cov:"Covers",opt:"Options & prevention",admin:"Pricing & rollout",claim:"Claims",faq:"FAQ"},
+    over:{t:"1. Overview",p:"Commercial Property protects your buildings and contents, while Business Interruption (BI) safeguards cash flows. We blend competitive market placement, risk engineering, and tuned deductibles/limits to balance protection and budget.",
+          li:["Site mapping & exposures (fire, water, theft, weather).","BI setup: gross profit, indemnity period (12–24–36 months).","Practical prevention: detection, compartmentation, maintenance."],
+          kpi:["Capacity","BI period","Engineering"]},
+    cov:{t:"2. Core covers",
+         c0:{t:"Property",li:["Fire, explosion, lightning, smoke.","Water damage, storm/hail/flood, NatCat.","Theft, vandalism, glass/signage breakage."]},
+         c1:{t:"Business Interruption",li:["Gross profit & increased cost of working.","Indemnity period 12–36 months.","Contingent BI (key suppliers/customers)."]},
+         c2:{t:"Machinery & utilities",li:["Machinery/electronic breakdown.","Utility failures (power/steam/chilled) as option.","Code compliance & increased cost to reinstate."]}},
+    opt:{t:"3. Options & prevention",
+         c0:{t:"NatCat & climate",li:["Storm, hail, flood, surge extensions.","Differentiated deductibles by site exposure.","Weather parametrics (optional)."]},
+         c1:{t:"Risk engineering",li:["Site surveys, IR thermography, sprinkler tests.","Prioritised action plan & quarterly follow-up.","Business continuity guides & scenarios."]},
+         c2:{t:"Policy parameters",li:["Sums insured & indexation, new-for-old.","Sub-limits: refrigerated goods, archives, data.","Coinsurance & stop-loss clauses as needed."]}},
+    admin:{t:"4. Pricing & rollout",
+         c0:{t:"Required data",li:["Site list: address, occupancy, construction, protections.","Sums insured per section (buildings, contents, stock).","Gross profit & desired BI period.","5-year loss history (frequency & severity)."]},
+         c1:{t:"Process",li:["Pre-survey & deductible/limit recommendation.","Market tender & negotiation of key clauses.","Binders, certificates and prevention calendar."]},
+         c2:{t:"Helpful docs",li:["Layouts & process diagrams, equipment lists.","Maintenance & compliance reports (sprinklers, electrical).","BCP & emergency procedures."]}},
+    claim:{t:"5. Claims handling",sum:"Our approach",li:["24/7 desk, mitigation measures & accredited adjusters.","Fast BI estimation & advances where agreed.","Reporting & lessons learnt to reduce recurrence."]},
+    faq:{t:"6. FAQ",q0:"How to choose the BI indemnity period?",a0:"Based on supply, production and sales cycles. Many industries require 18–24 months.",
+         q1:"Parametric vs. traditional covers?",a1:"Parametrics trigger on an index (rain, wind…). They complement Property/BI to speed up payouts.",
+         q2:"Which value basis to insure?",a2:"New-for-old reduces under-insurance but may cost more. We calibrate with valuations."},
+    cta:{t:"Protect assets & continuity",p:"We calibrate Property & BI, climate options and a pragmatic prevention plan.",
+         quote:"Get a quote",talk:"Talk to an advisor"},
+    footer:{contact:"Contact us",links:"Links",desc:"ACAPS-licensed brokerage & reinsurance<br/>Head office: [full address]<br/>Licence no.: [to be completed]"}
+  },
+
+  ar:{
+    nav:{home:"الرئيسية",solutions:"الحلول",re:"إعادة التأمين",climate:"مخاطر المناخ",esg:"الاستدامة",contact:"اتصل بنا",prev:"الصحة الجماعية والمزايا",next:"نقل البضائع"},
+    title:"تأمين الممتلكات وفقدان الأرباح (متعدد المخاطر)",
+    subtitle:"ممتلكات وفقدان أرباح • حريق وتسربات مياه • سرقة وكسر آلات • كوارث طبيعية وأحوال جوية • هندسة مخاطر ووقاية.",
+    badges:["مبانٍ ومخزون وتجهيزات","فقدان الأرباح (BI)","وقاية وامتثال"],
+    tabs:{over:"لمحة",cov:"التغطيات",opt:"الخيارات والوقاية",admin:"التسعير والتنفيذ",claim:"المطالبات",faq:"الأسئلة"},
+    over:{t:"١. لمحة",p:"يحمي تأمين الممتلكات المباني والمحتويات، بينما يحمي فقدان الأرباح التدفقات النقدية. نمزج بين تسعير تنافسي وهندسة مخاطر وضبط التحملات والحدود لتحقيق توازن بين الحماية والميزانية.",
+          li:["خرائط المواقع ومصادر الخطر (حريق، مياه، سرقة، طقس).","إعداد BI: الربح الإجمالي، مدة التعويض 12–36 شهراً.","وقاية عملية: كشف مبكر، تقسيم، صيانة."],
+          kpi:["القدرة","مدة BI","الهندسة"]},
+    cov:{t:"٢. التغطيات الأساسية",
+         c0:{t:"الممتلكات",li:["حريق وانفجار وصاعقة ودخان.","أضرار مياه وعواصف وبَرَد وفيضانات وكوارث.","سرقة وتخريب وكسر زجاج ولافتات."]},
+         c1:{t:"فقدان الأرباح",li:["الربح الإجمالي وتكاليف التشغيل الإضافية.","مدة تعويض 12–36 شهراً.","BI تبعي لمورّدين/عملاء رئيسيين."]},
+         c2:{t:"الآلات والمرافق",li:["كسر الآلات والإلكترونيات.","أعطال المرافق (طاقة/بخار/تبريد) اختيارية.","تكاليف إعادة المطابقة للأنظمة."]}},
+    opt:{t:"٣. الخيارات والوقاية",
+         c0:{t:"الكوارث والطقس",li:["امتدادات عواصف وبَرَد وفيضانات ومد بحري.","تحملات متفاوتة حسب تعرض كل موقع.","تغطيات جوية بارامترية (اختيارية)."]},
+         c1:{t:"هندسة المخاطر",li:["زيارات ميدانية، تصوير حراري، اختبارات رش آلي.","خطة إجراءات ذات أولوية ومتابعة ربع سنوية.","أدلة استمرارية الأعمال وسيناريوهات."]},
+         c2:{t:"معلمات الوثيقة",li:["مبالغ التأمين وفهارسها، قيمة جديدة.","حدود فرعية: بضائع مبردة، أرشيف، بيانات.","بنود مشاركة/إيقاف خسارة حسب الحاجة."]}},
+    admin:{t:"٤. التسعير والتنفيذ",
+         c0:{t:"البيانات المطلوبة",li:["قائمة المواقع: عنوان، نشاط، بناء، وسائل الحماية.","مبالغ التأمين (مبانٍ/محتويات/مخزون).","الربح الإجمالي ومدة BI المطلوبة.","سجل خسائر 5 سنوات."]},
+         c1:{t:"العملية",li:["مسح أولي وتوصية بالحدود/التحملات.","مناقصة سوقية وتفاوض على البنود الرئيسة.","وثائق ربط وشهادات وخطة وقاية."]},
+         c2:{t:"وثائق مساعدة",li:["مخططات وتدفقات العمليات ولوائح المعدات.","تقارير صيانة وامتثال (رش آلي/كهرباء).","خطة استمرارية وإجراءات طوارئ."]}},
+    claim:{t:"٥. إدارة المطالبات",sum:"نهجنا",li:["غرفة طوارئ 24/7 وإجراءات الحد من الأضرار وخبراء معتمدون.","تقدير سريع لـBI ودُفعات مقدّمة عند الاتفاق.","تقارير ودروس مستفادة لمنع تكرار الحوادث."]},
+    faq:{t:"٦. الأسئلة الشائعة",q0:"كيف نحدد مدة تعويض BI؟",a0:"بناءً على دورات التوريد والإنتاج والبيع. كثير من القطاعات تحتاج 18–24 شهراً.",
+         q1:"تغطيات بارامترية أم تقليدية؟",a1:"البارامترية تعتمد مؤشراً (أمطار/رياح). تكمل الممتلكات/BI لتسريع التعويض.",
+         q2:"أي أساس للقيمة المؤمن عليها؟",a2:"القيمة الجديدة تقلل نقص التأمين وقد تزيد التكلفة. نضبطها بالتقييمات."},
+    cta:{t:"حماية الأصول واستمرارية العمل",p:"نعاير الممتلكات وBI وخيارات المناخ وخطة وقاية عملية.",
+         quote:"اطلب عرضاً",talk:"تحدث إلى مستشار"},
+    footer:{contact: "معلومات الاتصال",links: "الروابط",desc:"وساطة وإعادة تأمين بترخيص ACAPS<br/>المقر: [العنوان الكامل]<br/>رقم الترخيص: [لاحقاً]"}
+  }
+};
+
+/* ================== Helpers ================== */
+let lang = localStorage.getItem('riskalia_lang')||'fr';
+if(!['fr','en','ar'].includes(lang)) lang='fr';
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+function t(path){const ns=path.split('.');let cur=I18N[lang];for(const n of ns){if(cur==null||!(n in cur)) return path;cur=cur[n]}return cur;}
+function setActiveNav(){ $$('#menu a').forEach(a=>a.classList.toggle('active', a.getAttribute('href').endsWith('solutions.html'))); }
+
+/* ================== Render & Tabs ================== */
+function applyTexts(){
+  document.documentElement.lang=lang;
+  document.body.dir=(lang==='ar'?'rtl':'ltr');
+
+  $$('[data-i18n]').forEach(el=> el.innerHTML = t(el.dataset.i18n));
+  $$('.lang-btn').forEach(b=> b.classList.toggle('active', b.dataset.lang===lang));
+  setActiveNav();
+}
+function bindTabs(){
+  const tabs=$$('.tabs .tab');
+  const panels=$$('.tabpanel');
+  function show(id, push=true){
+    tabs.forEach(btn=>{
+      const act = btn.dataset.tab===id;
+      btn.classList.toggle('active',act);
+      btn.setAttribute('aria-selected', act?'true':'false');
+    });
+    panels.forEach(p=> p.classList.toggle('active', p.id===id));
+    if(push) history.replaceState(null,'','#'+id);
+  }
+  tabs.forEach(btn=> btn.addEventListener('click', ()=>show(btn.dataset.tab)));
+  function fromHash(){
+    const id=(location.hash||'#over').slice(1);
+    const known=['over','cov','opt','admin','claim','faq'];
+    show( known.includes(id)?id:'over', false );
+  }
+  window.addEventListener('hashchange', fromHash);
+  fromHash();
+}
+function initUI(){
+  const toggle=$('.menu-toggle'), menu=$('#menu');
+  if(toggle&&menu){ toggle.addEventListener('click',()=>menu.classList.toggle('show')); }
+  $$('.lang-btn').forEach(btn=> btn.addEventListener('click', ()=>{
+    lang=btn.dataset.lang; localStorage.setItem('riskalia_lang',lang); applyTexts();
+  }));
+  const rev=$$('.reveal'); const onScroll=()=>{ const tr=window.innerHeight*0.85; rev.forEach(el=>{ if(el.getBoundingClientRect().top<tr) el.classList.add('active'); }); };
+  window.addEventListener('scroll',onScroll); onScroll();
+  bindTabs();
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{ applyTexts(); initUI(); });
+</script>
+</body>
+</html>
