@@ -1,0 +1,2417 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Riskalia — Services de Conseil en Gestion des Risques</title>
+    <meta
+      name="description"
+      content="Services de conseil spécialisés : gestion des risques, évaluation actuarielle des engagements sociaux, formation sur mesure. Cartographies vivantes, hypothèses auditées, ateliers pratiques pour dirigeants et équipes techniques."
+    />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&family=Tajawal:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/components/navigation.css" />
+    <link rel="stylesheet" href="assets/css/components/footer.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --c1: #005c73;
+        --c2: #00849b;
+        --c3: #00b0c8;
+        --cl: #fff;
+        --cm: #f6fafc;
+        --cd: #243238;
+        --radius: 18px;
+        --shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
+        --border: 1px solid rgba(0, 93, 115, 0.18);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        overflow-x: hidden;
+      }
+      body {
+        font-family: "Open Sans", sans-serif;
+        color: var(--cd);
+        line-height: 1.7;
+        background: #fff;
+      }
+      body[dir="rtl"] {
+        direction: rtl;
+        font-family: "Tajawal", "Open Sans", sans-serif;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Montserrat", sans-serif;
+        color: var(--c1);
+      }
+      body[dir="rtl"] h1,
+      body[dir="rtl"] h2,
+      body[dir="rtl"] h3,
+      body[dir="rtl"] h4 {
+        font-family: "Tajawal", "Open Sans", sans-serif;
+        letter-spacing: 0;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      img {
+        max-width: 100%;
+        display: block;
+      }
+      .container {
+        max-width: 1180px;
+        margin: auto;
+        padding: 0 18px;
+      }
+      .kicker {
+        color: #4e6a74;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 800;
+        margin-bottom: 6px;
+      }
+      .muted {
+        color: #5f7781;
+      }
+      .btn {
+        display: inline-block;
+        padding: 10px 16px;
+        background: var(--c3);
+        color: #fff;
+        border-radius: 12px;
+        font-weight: 800;
+        border: 1px solid transparent;
+        transition: 0.25s;
+      }
+      .btn:hover {
+        background: var(--c2);
+        transform: translateY(-1px);
+      }
+      .btn.secondary {
+        background: #fff;
+        color: var(--c1);
+        border-color: #cfe1e6;
+      }
+      section {
+        padding: 30px 0;
+      }
+
+      /* NAV */
+      header {
+        position: sticky;
+        top: 0;
+        background: #fff;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+        z-index: 60;
+      }
+      .nav-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 0;
+      }
+      /* ===== NAV LAYOUT ===== */
+      header .nav-wrap {
+        display: grid;
+        grid-template-columns: auto 1fr auto; /* brand | nav+search | lang */
+        align-items: center;
+        gap: 12px;
+        padding: 10px 0;
+      }
+
+      header nav {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      #menu {
+        display: flex;
+        gap: 0.8rem;
+        align-items: center;
+        flex: 0 1 auto;
+      }
+
+      /* === Compact navbar search === */
+      .nav-search {
+        position: relative;
+        flex: 0 0 100px;
+        max-width: 260px;
+        min-width: 100px;
+        margin-left: 1px;
+        z-index: 1000;
+      }
+      body[dir="rtl"] .nav-search {
+        margin-left: 0;
+        margin-right: 2px;
+      }
+
+      .nav-search input {
+        height: 30px;
+        width: 100%;
+        padding: 0 1px 0 1px; /* room for buttons */
+        border: 1px solid #cfe1e6;
+        border-radius: 999px;
+        background: #f7fcfe;
+        color: #0b4e5b;
+        font-weight: 700;
+        font-size: 0.92rem;
+        outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        box-shadow: inset 0 0 0 1px rgba(0, 176, 200, 0.03);
+      }
+      .nav-search input:focus {
+        border-color: #00b0c8;
+        box-shadow: 0 0 0 3px rgba(0, 176, 200, 0.15);
+      }
+
+      /* Buttons inside the pill */
+      .nav-search .nav-go,
+      .nav-search .nav-clear {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 24px;
+        min-width: 24px;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        opacity: 0.75;
+        transition: opacity 0.15s, background-color 0.15s;
+      }
+      .nav-search .nav-go:hover,
+      .nav-search .nav-clear:hover {
+        opacity: 1;
+        background: rgba(0, 176, 200, 0.08);
+      }
+
+      .nav-search .nav-go {
+        right: 6px;
+        padding: 0 6px;
+      }
+
+      .nav-search .nav-clear {
+        right: 34px;
+        width: 24px;
+        font-size: 16px;
+        line-height: 1;
+        display: none;
+      }
+      .nav-search.has-value .nav-clear {
+        display: inline-flex;
+      }
+
+      body[dir="rtl"] .nav-search .nav-go {
+        right: auto;
+        left: 6px;
+      }
+      body[dir="rtl"] .nav-search .nav-clear {
+        right: auto;
+        left: 4px;
+      }
+      body[dir="rtl"] .nav-search input {
+        padding: 0 2px 0 4px;
+      }
+
+      /* Suggestions panel — expand to content, stay on-screen */
+      #nav-search-list {
+        position: absolute;
+        left: 0;
+        top: calc(100% + 8px);
+        display: none;
+        background: #fff;
+        border: 1px solid #e6eef0;
+        border-radius: 12px;
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.1);
+        padding: 6px;
+        list-style: none;
+        margin: 0;
+
+        white-space: nowrap; /* keep items in one line */
+        width: max-content; /* grow to longest option */
+        min-width: 100%; /* but at least input width */
+        max-width: min(90vw, 800px); /* keep it on-screen */
+        z-index: 2000;
+      }
+      #nav-search-list[aria-hidden="false"] {
+        display: block;
+      }
+      #nav-search-list li[role="option"] {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border-radius: 10px;
+        cursor: pointer;
+        color: #0b4e5b;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      #nav-search-list li[role="option"][aria-selected="true"],
+      #nav-search-list li[role="option"]:hover {
+        background: #eef6f8;
+      }
+      #nav-search-list .opt-kicker,
+      #nav-search-list .opt-sub {
+        flex: 0 0 auto;
+      }
+
+      /* Mid screens */
+      @media (max-width: 1100px) {
+        .nav-search {
+          flex-basis: 220px;
+          max-width: 240px;
+        }
+        .nav-search input {
+          height: 30px;
+        }
+      }
+
+      /* Mobile: full width row */
+      @media (max-width: 900px) {
+        .nav-search {
+          order: 4;
+          grid-column: 1 / -1;
+          width: 100%;
+          max-width: none;
+          min-width: 0;
+          margin: 8px 0 0 0;
+        }
+        .nav-search input {
+          height: 36px;
+          font-size: 0.95rem;
+        }
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--c1);
+        font-weight: 800;
+      }
+      .brand img {
+        height: 48px;
+        width: auto;
+        border-radius: 10px;
+      }
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 0.8rem;
+        font-weight: 700;
+      }
+      nav a {
+        position: relative;
+        padding: 6px;
+      }
+      nav a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background: var(--c3);
+        left: 0;
+        bottom: -3px;
+        transition: 0.25s;
+      }
+      nav a:hover::after,
+      nav a.active::after {
+        width: 100%;
+      }
+      .menu-toggle {
+        display: none;
+        font-size: 2rem;
+        cursor: pointer;
+      }
+      .lang-switch {
+        display: flex;
+        gap: 6px;
+      }
+      .lang-btn {
+        border: 1px solid #cfe1e6;
+        border-radius: 999px;
+        padding: 6px 10px;
+        background: #eef6f8;
+        color: #0b4e5b;
+        font-weight: 800;
+      }
+      .lang-btn.active,
+      .lang-btn:hover {
+        background: var(--c2);
+        color: #fff;
+        border-color: var(--c2);
+      }
+      @media (max-width: 900px) {
+        nav ul {
+          flex-direction: column;
+          position: absolute;
+          top: 64px;
+          right: -100%;
+          background: #fff;
+          width: 260px;
+          padding: 14px;
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+          transition: right 0.3s, left 0.3s;
+        }
+        nav ul.show {
+          right: 0;
+        }
+        body[dir="rtl"] nav ul {
+          right: auto;
+          left: -100%;
+        }
+        body[dir="rtl"] nav ul.show {
+          left: 0;
+        }
+        .menu-toggle {
+          display: block;
+        }
+      }
+      #menu li.dropdown {
+        position: relative;
+      }
+      #menu li.dropdown > a.has-caret {
+        padding-right: 18px;
+      }
+      body[dir="rtl"] #menu li.dropdown > a.has-caret {
+        padding-right: 6px;
+        padding-left: 18px;
+      }
+      #menu li .caret {
+        display: inline-block;
+        transition: transform 0.2s;
+      }
+      #menu li .submenu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 0;
+        background: #fff;
+        border: 1px solid #e6eef0;
+        border-radius: 10px;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+        list-style: none;
+        margin: 0;
+        padding: 8px;
+        min-width: 220px;
+        z-index: 1000;
+      }
+      #menu li .submenu li a {
+        display: block;
+        padding: 10px 12px;
+        border-radius: 8px;
+        color: #0b4e5b;
+        font-weight: 700;
+      }
+      #menu li .submenu li a:hover {
+        background: #eef6f8;
+      }
+      #menu li.dropdown:hover > .submenu,
+      #menu li.dropdown:focus-within > .submenu {
+        display: block;
+      }
+      #menu li.open > .submenu {
+        display: block;
+      }
+      #menu li.dropdown:hover > a .caret,
+      #menu li.dropdown:focus-within > a .caret {
+        transform: rotate(180deg);
+      }
+      body[dir="rtl"] #menu li .submenu {
+        left: auto;
+        right: 0;
+      }
+      @media (max-width: 900px) {
+        #menu li.dropdown {
+          width: 100%;
+        }
+        #menu li.dropdown > a.has-caret {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        #menu li .submenu {
+          position: static;
+          display: none;
+          box-shadow: none;
+          border: 0;
+          padding: 6px 0;
+          background: transparent;
+          margin-top: 4px;
+          min-width: auto;
+        }
+        #menu li.dropdown.open > .submenu {
+          display: block;
+        }
+        #menu li.dropdown.open > a .caret {
+          transform: rotate(180deg);
+        }
+      }
+
+      /* RTL fixes */
+      :root {
+        --c1: #005c73;
+        --c2: #00849b;
+        --c3: #00b0c8;
+        --cl: #fff;
+        --cm: #f6fafc;
+        --cd: #243238;
+        --radius: 18px;
+        --shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
+        --border: 1px solid rgba(0, 93, 115, 0.18);
+      }
+
+      /* ====== Ajouts / Correctifs RTL ====== */
+      ul.card-list {
+        list-style-position: inside;
+        padding-inline-start: 0;
+      }
+      body[dir="rtl"] ul.card-list {
+        text-align: right;
+        list-style-position: inside;
+      }
+      ul.card-list li {
+        padding-inline-start: 1ch;
+        margin-block: 5px;
+      }
+
+      /* RTL fix pour nav-search */
+      body[dir="rtl"] .nav-search input {
+        text-align: right;
+        padding-right: 14px;
+        padding-left: 64px;
+      }
+      body[dir="rtl"] .nav-search .nav-go {
+        right: auto;
+        left: 6px;
+      }
+      body[dir="rtl"] .nav-search .nav-clear {
+        right: auto;
+        left: 34px;
+      }
+      body[dir="rtl"] #nav-search-list li[role="option"] {
+        direction: rtl;
+        justify-content: space-between;
+      }
+
+      /* Lang switch RTL fix */
+      body[dir="rtl"] .lang-switch {
+        direction: ltr;
+      }
+
+      /* ================== ENHANCED HERO SECTION ================== */
+      .hero {
+        min-height: 75vh;
+        background: linear-gradient(
+            135deg,
+            rgba(0, 92, 115, 0.95) 0%,
+            rgba(0, 132, 155, 0.92) 35%,
+            rgba(0, 176, 200, 0.88) 100%
+          ),
+          radial-gradient(
+            ellipse at 70% 20%,
+            rgba(0, 176, 200, 0.3) 0%,
+            transparent 50%
+          ),
+          url("https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=2000&q=80")
+            center/cover no-repeat;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        padding: 80px 0 120px;
+        position: relative;
+        overflow: hidden;
+        color: #fff;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(
+            circle at 20% 80%,
+            rgba(0, 176, 200, 0.15) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(255, 255, 255, 0.08) 0%,
+            transparent 50%
+          );
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .hero .container {
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero h1 {
+        color: #fff;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+      }
+
+      .hero p {
+        color: rgba(255, 255, 255, 0.95);
+        font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+        max-width: 900px;
+        margin: 0 auto 2.5rem;
+        line-height: 1.6;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        font-weight: 400;
+      }
+
+      .hero p strong {
+        color: #fff;
+        font-weight: 600;
+        text-shadow: 0 2px 15px rgba(0, 176, 200, 0.4);
+      }
+
+      .badges {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .badge {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.18) 0%,
+          rgba(255, 255, 255, 0.12) 100%
+        );
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: #fff;
+        padding: 12px 20px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .badge::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.6s ease;
+      }
+
+      .badge:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18),
+          inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.4);
+      }
+
+      .badge:hover::before {
+        left: 100%;
+      }
+
+      .hero-wave {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -2px;
+        height: 80px;
+        pointer-events: none;
+        background: url('data:image/svg+xml;utf8,<svg width="1440" height="80" viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:%23f7fcfe;stop-opacity:1" /><stop offset="50%" style="stop-color:%23ffffff;stop-opacity:0.98" /><stop offset="100%" style="stop-color:%23f7fcfe;stop-opacity:1" /></linearGradient></defs><path d="M0,35 C240,85 480,5 720,35 C960,65 1200,15 1440,32 L1440,80 L0,80 Z" fill="url(%23waveGradient)"/></svg>')
+          center/cover no-repeat;
+        opacity: 1;
+        animation: waveFloat 12s ease-in-out infinite;
+        z-index: 3;
+      }
+
+      @keyframes waveFloat {
+        0%,
+        100% {
+          transform: translateY(0) scaleY(1);
+        }
+        33% {
+          transform: translateY(-3px) scaleY(1.02);
+        }
+        66% {
+          transform: translateY(2px) scaleY(0.98);
+        }
+      }
+
+      .section-wave {
+        height: 30px;
+        margin-top: -40px;
+        background: url('data:image/svg+xml;utf8,<svg width="1440" height="30" viewBox="0 0 1440 30" xmlns="http://www.w3.org/2000/svg"><path d="M0,8 C240,28 480,2 720,12 C960,22 1200,6 1440,12 L1440,30 L0,30 Z" fill="%23f7fcfe"/></svg>')
+          center/cover no-repeat;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Floating elements animation */
+      .hero::after {
+        content: "";
+        position: absolute;
+        top: 10%;
+        right: 10%;
+        width: 120px;
+        height: 120px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0.05) 50%,
+          transparent 100%
+        );
+        border-radius: 50%;
+        animation: float 8s ease-in-out infinite;
+        z-index: 1;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+          opacity: 0.7;
+        }
+        50% {
+          transform: translateY(-20px) rotate(180deg);
+          opacity: 1;
+        }
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .hero {
+          min-height: 60vh;
+          padding: 60px 0 100px;
+        }
+
+        .badges {
+          gap: 8px;
+          margin-top: 1.5rem;
+        }
+
+        .badge {
+          padding: 10px 16px;
+          font-size: 0.9rem;
+        }
+
+        .hero-wave {
+          height: 60px;
+        }
+
+        .section-wave {
+          height: 25px;
+          margin-top: -30px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero {
+          min-height: 55vh;
+          padding: 50px 0 80px;
+        }
+
+        .badges {
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .badge {
+          width: fit-content;
+          min-width: 200px;
+        }
+      }
+
+      /* ================== Premium background wrapper ================== */
+      .main-wrapper {
+        position: relative;
+        z-index: 0;
+        isolation: isolate;
+        background: radial-gradient(
+            1100px 460px at 70% -10%,
+            rgba(0, 176, 200, 0.08) 0%,
+            transparent 60%
+          ),
+          linear-gradient(180deg, #f7fcfe 0%, #ffffff 100%);
+      }
+      .main-wrapper::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("") center/cover no-repeat;
+        opacity: 0.12;
+        filter: saturate(105%) contrast(102%) blur(0.3px);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .main-wrapper::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 48px;
+        background: linear-gradient(
+          to bottom,
+          #f7fcfe 0%,
+          rgba(247, 252, 254, 0.92) 35%,
+          rgba(247, 252, 254, 0) 100%
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+      .main-wrapper > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* ================== Tabs (segments) ================== */
+      .tabs {
+        margin: 10px auto 10px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        max-width: 620px;
+        padding: 0 8px;
+      }
+      .tab {
+        padding: 10px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(0, 93, 115, 0.16);
+        font-weight: var(--fw-bold);
+        font-size: 0.95rem;
+        color: #0b4e5b;
+        text-align: center;
+        cursor: pointer;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.92),
+          rgba(255, 255, 255, 0.78)
+        );
+        backdrop-filter: saturate(115%) blur(4px);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+        transition: transform 0.18s ease, box-shadow 0.18s ease,
+          background 0.18s ease, border-color 0.18s ease;
+      }
+      .tab:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      }
+      .tab.active {
+        background: linear-gradient(
+            135deg,
+            rgba(0, 176, 200, 0.18),
+            rgba(0, 92, 115, 0.1)
+          ),
+          linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.92),
+            rgba(255, 255, 255, 0.78)
+          );
+        border-color: rgba(0, 92, 115, 0.25);
+        box-shadow: 0 8px 22px rgba(0, 176, 200, 0.18);
+      }
+
+      /* ================== Tools: search + chips ================== */
+      .tools {
+        display: flex;
+        justify-content: center;
+        margin: 8px 0;
+      }
+      .search {
+        display: flex;
+        gap: 8px;
+      }
+      .search input[type="search"] {
+        width: min(560px, 80vw);
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid rgba(0, 93, 115, 0.16);
+        background: linear-gradient(180deg, #fff, rgba(255, 255, 255, 0.92));
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+        font-size: 1rem;
+      }
+      .btn {
+        display: inline-block;
+        padding: 10px 16px;
+        background: var(--c3);
+        color: #fff;
+        border-radius: 12px;
+        font-weight: var(--fw-bold);
+        border: 1px solid transparent;
+        transition: 0.25s;
+        cursor: pointer;
+      }
+      .btn:hover {
+        background: var(--c2);
+        transform: translateY(-1px);
+      }
+      .btn.secondary {
+        background: #fff;
+        color: var(--c1);
+        border-color: #cfe1e6;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        margin: 10px auto;
+        max-width: 980px;
+        padding: 0 8px;
+      }
+      .chip {
+        border: 1px solid rgba(0, 93, 115, 0.16);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.94),
+          rgba(255, 255, 255, 0.86)
+        );
+        border-radius: 999px;
+        padding: 8px 12px;
+        font-weight: 800;
+        color: #0b4e5b;
+        cursor: pointer;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+        transition: 0.18s;
+      }
+      .chip:hover {
+        transform: translateY(-1px);
+      }
+      .chip.active {
+        background: linear-gradient(
+            135deg,
+            rgba(0, 176, 200, 0.16),
+            rgba(0, 92, 115, 0.08)
+          ),
+          linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.94),
+            rgba(255, 255, 255, 0.86)
+          );
+        border-color: rgba(0, 92, 115, 0.25);
+        color: #064b58;
+        box-shadow: 0 8px 22px rgba(0, 176, 200, 0.14);
+      }
+
+      /* ================== Product grid ================== */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+      @media (max-width: 980px) {
+        .grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 580px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .card {
+        position: relative;
+        border-radius: 18px;
+        overflow: hidden;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.92),
+          rgba(255, 255, 255, 0.86)
+        );
+        backdrop-filter: saturate(110%) blur(4px);
+        box-shadow: 0 12px 26px rgba(0, 0, 0, 0.07);
+        border: 1px solid rgba(0, 93, 115, 0.16);
+        padding: 12px;
+        transition: transform 0.22s ease, box-shadow 0.22s ease;
+      }
+      .card::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(180deg, var(--c3), var(--c2));
+        opacity: 0.5;
+      }
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.1);
+      }
+      .illus {
+        height: 140px;
+        border-radius: 12px;
+        object-fit: cover;
+        width: 100%;
+        border: 1px solid #e6eef1;
+        background: #f8fbfc;
+      }
+      .actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 8px;
+      }
+
+      /* ================== Reveal ================== */
+      .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: none;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .reveal {
+          transition: none;
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* ================== Footer ================== */
+      footer {
+        background: var(--c1);
+        color: #fff;
+        padding: 36px 0;
+        margin-top: 0;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+      }
+      footer h4 {
+        color: #a8ecf4;
+        margin-bottom: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Component Container -->
+    <div id="navigation-container"></div>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <h1 data-i18n="title">Solutions d'assurance</h1>
+        <p data-i18n="subtitle">
+          Deux parcours : <strong>Entreprises</strong> et
+          <strong>Particuliers</strong>. Produits inspirés des meilleures
+          pratiques du marché (multirisques, transport, flotte, RC,
+          construction… / santé, habitation, vie, voyage Schengen, retraite).
+        </p>
+        <div class="badges">
+          <span class="badge" data-i18n="badges.0">Mise en concurrence</span>
+          <span class="badge" data-i18n="badges.1">Gestion des sinistres</span>
+          <span class="badge" data-i18n="badges.2">Transparence totale</span>
+        </div>
+      </div>
+      <div class="hero-wave" aria-hidden="true"></div>
+    </section>
+    <div class="section-wave" aria-hidden="true"></div>
+
+    <!-- MAIN -->
+    <div class="main-wrapper">
+      <section class="reveal">
+        <div class="container mb-6">
+          <!-- Tabs -->
+          <div class="tabs" role="tablist" aria-label="Segments">
+            <button
+              class="tab active"
+              id="tab-corp"
+              role="tab"
+              aria-selected="true"
+              data-seg="corp"
+              data-i18n="tabs.corp"
+            >
+              Entreprises
+            </button>
+            <button
+              class="tab"
+              id="tab-retail"
+              role="tab"
+              aria-selected="false"
+              data-seg="retail"
+              data-i18n="tabs.retail"
+            >
+              Particuliers
+            </button>
+          </div>
+
+          <!-- Tools -->
+          <div class="tools">
+            <div class="search" role="search">
+              <input
+                id="q"
+                type="search"
+                placeholder="Rechercher…"
+                aria-label="Rechercher"
+              />
+              <button class="btn" id="clear" type="button" data-i18n="ui.clear">
+                Effacer
+              </button>
+            </div>
+          </div>
+
+          <!-- Chips -->
+          <div class="chips" id="chips"></div>
+
+          <!-- Product grid in "glass" cards -->
+          <div id="grid" class="grid" aria-live="polite"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer Component Container -->
+    <div id="footer-container"></div>
+
+    <!-- ================== i18n & data ================== -->
+    <script>
+      const I18N = {
+        fr: {
+          nav: {
+            home: "Accueil",
+            solutions: "Solutions",
+            ins: "Assurance",
+            re: "Réassurance",
+            climate: "Risques Climatiques",
+            services: "Services de Conseil",
+            esg: "ESG",
+            contact: "Contact",
+          },
+          title: "Solutions d'assurance",
+          subtitle:
+            "Deux parcours : <strong>Entreprises</strong> et <strong>Particuliers</strong>. Produits inspirés des meilleures pratiques du marché (multirisques, transport, flotte, RC, construction… / santé, habitation, vie, voyage Schengen, retraite).",
+          badges: [
+            "Mise en concurrence",
+            "Gestion des sinistres",
+            "Transparence totale",
+          ],
+          tabs: { corp: "Entreprises", retail: "Particuliers" },
+          ui: {
+            clear: "Effacer",
+            search: "Rechercher…",
+            nores: "Aucun produit ne correspond à votre recherche.",
+          },
+          cta: {
+            quote: "Obtenir un devis",
+            learn: "En savoir plus",
+            more: "Parler à un conseiller",
+          },
+          footer: {
+            desc: "Cabinet de courtage & réassurance agréé ACAPS<br/>Siège : 16, Rue de Terves, 2ème Etage. Quartier Mers Sultan, Casablanca",
+            links: "Liens",
+            contact: "Contact",
+            contactBlock: {
+              tel: "Tél 1 :",
+              telNum1: "+212-666-756991",
+              tel2: "Tél 2 :",
+              telNum2: "+212-675-208909",
+              nabil: "E-mail de Nabil :",
+              infos: "Informations générales :",
+            },
+          },
+          filters: {
+            corp: [
+              ["all", "Tous"],
+              ["prop", "Biens"],
+              ["trans", "Transport"],
+              ["fleet", "Flotte"],
+              ["liab", "Responsabilité"],
+              ["const", "Construction"],
+              ["health", "Santé"],
+            ],
+            retail: [
+              ["all", "Tous"],
+              ["health", "Santé"],
+              ["acc", "Accident"],
+              ["home", "Habitation"],
+              ["life", "Vie & placements"],
+              ["travel", "Voyage"],
+              ["ret", "Retraite"],
+            ],
+          },
+          products: {
+            corp: [
+              {
+                id: "multirisques",
+                url: "Produits/multirisques.html",
+                img: "https://images.unsplash.com/photo-1531973576160-7125cd663d86?auto=format&fit=crop&w=1200&q=60",
+                cat: ["prop"],
+                t: "Multirisques Entreprise",
+                p: "Biens & pertes d'exploitation pour locaux, stocks, machines.",
+                bul: [
+                  "Incendie, dégâts des eaux, bris de machines",
+                  "Pertes d'exploitation (PDB)",
+                  "Options CatNat & événements climatiques",
+                ],
+              },
+              {
+                id: "transport",
+                url: "Produits/transport.html",
+                img: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=60",
+                cat: ["trans"],
+                t: "Transport (marchandises)",
+                p: "Couvre vos expéditions import/export & logistique.",
+                bul: [
+                  "Tous risques facultés",
+                  "RC transporteur / commissionnaire",
+                  "Paramétriques météo en option",
+                ],
+              },
+              {
+                id: "flotte",
+                url: "Produits/flotte.html",
+                img: "https://images.unsplash.com/photo-1704488473677-ae044ef0d289?auto=format&fit=crop&w=1200&q=60",
+                cat: ["fleet"],
+                t: "Automobile & Flotte",
+                p: "De 5 à 5 000 véhicules, gestion sinistres & télématique.",
+                bul: [
+                  "Tiers / Tous risques / Bris de glace",
+                  "Assistance & véhicules de remplacement",
+                  "Tableaux de bord sinistres",
+                ],
+              },
+              {
+                id: "rc",
+                url: "Produits/rc.html",
+                img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=60",
+                cat: ["liab"],
+                t: "Responsabilité Civile",
+                p: "RC Générale / Professionnelle / Pollution / Produits.",
+                bul: [
+                  "RC exploitation et après livraison",
+                  "RC professionnelle (PI)",
+                  "RC environnementale",
+                ],
+              },
+              {
+                id: "construction",
+                url: "Produits/construction.html",
+                img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=60",
+                cat: ["const"],
+                t: "Construction (CAR/EAR)",
+                p: "Tous risques chantier & décennale selon projet.",
+                bul: [
+                  "Chantiers BTP, énergie, infrastructures",
+                  "Pertes d'exploitation chantier",
+                  "Couvertures par phase",
+                ],
+              },
+              {
+                id: "santecollective",
+                url: "Produits/santecollective.html",
+                img: "https://images.unsplash.com/photo-1519494080410-f9aa76cb4283?auto=format&fit=crop&w=1200&q=60",
+                cat: ["health"],
+                t: "Santé collective & Prévoyance",
+                p: "Contrats pour salariés : frais médicaux et prévoyance.",
+                bul: [
+                  "Réseaux de soins & tiers payant",
+                  "Couvertures cadres/non-cadres",
+                  "Pilotage coûts & prévention",
+                ],
+              },
+            ],
+            retail: [
+              {
+                id: "sante",
+                url: "Produits/sante.html",
+                img: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=1200&q=60",
+                cat: ["health"],
+                t: "Santé",
+                p: "Remboursement soins, hospitalisation, optique & dentaire.",
+                bul: [
+                  "Réseau partenaires & tiers payant",
+                  "Formules modulaires",
+                  "Assistance 24/7",
+                ],
+              },
+              {
+                id: "alv",
+                url: "Produits/alv.html",
+                img: "https://images.unsplash.com/photo-1633158832532-f71e9c7ac6d6?auto=format&fit=crop&w=1200&q=60",
+                cat: ["acc"],
+                t: "Accidents de la vie",
+                p: "Indemnisation des accidents domestiques & loisirs.",
+                bul: [
+                  "Incapacité & invalidité",
+                  "Rente éducation",
+                  "Assistance à domicile",
+                ],
+              },
+              {
+                id: "habitation",
+                url: "Produits/habitation.html",
+                img: "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=60",
+                cat: ["home"],
+                t: "Biens (Habitation)",
+                p: "Incendie, vol, dégâts des eaux, RC vie privée.",
+                bul: [
+                  "Valeur à neuf selon options",
+                  "Protection juridique",
+                  "Objets de valeur",
+                ],
+              },
+              {
+                id: "vie",
+                url: "Produits/vie.html",
+                img: "https://images.unsplash.com/photo-1476703993599-0035a21b17a9?auto=format&fit=crop&w=1200&q=60",
+                cat: ["life"],
+                t: "Assurance-vie & placements",
+                p: "Épargne, transmission & capitalisation.",
+                bul: [
+                  "Fonds euros & unités de compte",
+                  "Arbitrages & fiscalité",
+                  "Options bénéficiaires",
+                ],
+              },
+              {
+                id: "schengen",
+                url: "Produits/schengen.html",
+                img: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&fit=crop&w=1200&q=60",
+                cat: ["travel"],
+                t: "Voyage Schengen",
+                p: "Attestation conforme, visa & assistance.",
+                bul: [
+                  "Frais médicaux & rapatriement",
+                  "Bagages & retard",
+                  "Formules courte/longue durée",
+                ],
+              },
+              {
+                id: "retraite",
+                url: "Produits/retraite.html",
+                img: "https://images.unsplash.com/photo-1562557082-7f2785d741e7?auto=format&fit=crop&w=1200&q=60",
+                cat: ["ret"],
+                t: "Retraite",
+                p: "Constitution d'une rente/épargne long terme.",
+                bul: [
+                  "Versements programmés",
+                  "Avantages fiscaux (selon cadre)",
+                  "Options réversibilité",
+                ],
+              },
+            ],
+          },
+        },
+
+        en: {
+          nav: {
+            home: "Home",
+            solutions: "Solutions",
+            ins: "Insurance",
+            re: "Reinsurance",
+            climate: "Climate Risk",
+            services: "Advisory Services",
+            esg: "ESG",
+            contact: "Contact",
+          },
+          title: "Insurance solutions",
+          subtitle:
+            "Two paths: <strong>Businesses</strong> and <strong>Individuals</strong>. Products aligned with market best practices (property, cargo, fleet, liability, construction… / health, home, life & savings, Schengen travel, retirement).",
+          badges: [
+            "Market benchmarking",
+            "Claims handling",
+            "Full transparency",
+          ],
+          tabs: { corp: "Businesses", retail: "Individuals" },
+          ui: {
+            clear: "Clear",
+            search: "Search…",
+            nores: "No product matches your search.",
+          },
+          cta: {
+            quote: "Get a quote",
+            learn: "Learn more",
+            more: "Talk to an advisor",
+          },
+          footer: {
+            desc: "ACAPS-licensed brokerage & reinsurance<br/>Head office: 16, Rue de Terves, 2ème Etage. Quartier Mers Sultan, Casablanca",
+            links: "Links",
+            contact: "Contact",
+            contactBlock: {
+              tel: "Phone 1 :",
+              telNum1: "+212-666-756991",
+              tel2: "Phone 2 :",
+              telNum2: "+212-675-208909",
+              nabil: "Nabil's e-mail :",
+              infos: "General Information :",
+            },
+          },
+          filters: {
+            corp: [
+              ["all", "All"],
+              ["prop", "Property"],
+              ["trans", "Cargo"],
+              ["fleet", "Fleet"],
+              ["liab", "Liability"],
+              ["const", "Construction"],
+              ["health", "Health"],
+            ],
+            retail: [
+              ["all", "All"],
+              ["health", "Health"],
+              ["acc", "Accident"],
+              ["home", "Home"],
+              ["life", "Life & savings"],
+              ["travel", "Travel"],
+              ["ret", "Retirement"],
+            ],
+          },
+          products: {
+            corp: [
+              {
+                id: "multirisques",
+                url: "Produits/multirisques.html",
+                img: "https://images.unsplash.com/photo-1531973576160-7125cd663d86?auto=format&fit=crop&w=1200&q=60",
+                cat: ["prop"],
+                t: "Commercial Property (All Risks)",
+                p: "Assets & Business Interruption for premises, stock, machinery.",
+                bul: [
+                  "Fire, water damage, machinery breakdown",
+                  "Business interruption",
+                  "NatCat & climate options",
+                ],
+              },
+              {
+                id: "transport",
+                url: "Produits/transport.html",
+                img: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=60",
+                cat: ["trans"],
+                t: "Cargo / Transport",
+                p: "Covers imports/exports and logistics chain.",
+                bul: [
+                  "All-risks cargo",
+                  "Carrier/Freight forwarder liability",
+                  "Optional weather parametrics",
+                ],
+              },
+              {
+                id: "flotte",
+                url: "Produits/flotte.html",
+                img: "https://images.unsplash.com/photo-1704488473677-ae044ef0d289?auto=format&fit=crop&w=1200&q=60",
+                cat: ["fleet"],
+                t: "Motor & Fleet",
+                p: "From 5 to 5,000 vehicles, claims & telematics.",
+                bul: [
+                  "TPL / Comprehensive / Glass",
+                  "Roadside assistance",
+                  "Claims dashboards",
+                ],
+              },
+              {
+                id: "rc",
+                url: "Produits/rc.html",
+                img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=60",
+                cat: ["liab"],
+                t: "General / Professional Liability",
+                p: "GL, PI, pollution, product liability.",
+                bul: [
+                  "Operations & post-delivery",
+                  "Professional indemnity",
+                  "Environmental liability",
+                ],
+              },
+              {
+                id: "construction",
+                url: "Produits/construction.html",
+                img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=60",
+                cat: ["const"],
+                t: "Construction (CAR/EAR)",
+                p: "All-risks projects & decennial where applicable.",
+                bul: [
+                  "BTP, energy, infrastructure",
+                  "Project delay/BI options",
+                  "Phase-based covers",
+                ],
+              },
+              {
+                id: "santecollective",
+                url: "Produits/santecollective.html",
+                img: "https://images.unsplash.com/photo-1519494080410-f9aa76cb4283?auto=format&fit=crop&w=1200&q=60",
+                cat: ["health"],
+                t: "Group Health & Benefits",
+                p: "Employee medical + risk benefits packages.",
+                bul: [
+                  "Provider networks & direct billing",
+                  "Schemes by grade",
+                  "Cost control & prevention",
+                ],
+              },
+            ],
+            retail: [
+              {
+                id: "sante",
+                url: "Produits/sante.html",
+                img: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=1200&q=60",
+                cat: ["health"],
+                t: "Health",
+                p: "Outpatient, hospital, optical & dental.",
+                bul: [
+                  "Partner networks & cashless",
+                  "Modular plans",
+                  "24/7 assistance",
+                ],
+              },
+              {
+                id: "alv",
+                url: "Produits/alv.html",
+                img: "https://images.unsplash.com/photo-1633158832532-f71e9c7ac6d6?auto=format&fit=crop&w=1200&q=60",
+                cat: ["acc"],
+                t: "Personal Accident",
+                p: "Indemnities for domestic/leisure accidents.",
+                bul: [
+                  "Disability benefits",
+                  "Education annuity",
+                  "Home assistance",
+                ],
+              },
+              {
+                id: "habitation",
+                url: "Produits/habitation.html",
+                img: "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=60",
+                cat: ["home"],
+                t: "Home (Property)",
+                p: "Fire, theft, water damage, personal liability.",
+                bul: [
+                  "New-for-old options",
+                  "Legal protection",
+                  "Valuables cover",
+                ],
+              },
+              {
+                id: "vie",
+                url: "Produits/vie.html",
+                img: "https://images.unsplash.com/photo-1476703993599-0035a21b17a9?auto=format&fit=crop&w=1200&q=60",
+                cat: ["life"],
+                t: "Life Insurance & Savings",
+                p: "Wealth, succession & capital growth.",
+                bul: [
+                  "Euro funds & UC",
+                  "Arbitrage & tax",
+                  "Beneficiary options",
+                ],
+              },
+              {
+                id: "schengen",
+                url: "Produits/schengen.html",
+                img: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&fit=crop&w=1200&q=60",
+                cat: ["travel"],
+                t: "Schengen Travel",
+                p: "Visa-compliant certificate & assistance.",
+                bul: [
+                  "Medical & repatriation",
+                  "Baggage & delay",
+                  "Short/long stays",
+                ],
+              },
+              {
+                id: "retraite",
+                url: "Produits/retraite.html",
+                img: "https://images.unsplash.com/photo-1562557082-7f2785d741e7?auto=format&fit=crop&w=1200&q=60",
+                cat: ["ret"],
+                t: "Retirement",
+                p: "Build long-term income/savings.",
+                bul: [
+                  "Programmed contributions",
+                  "Tax efficiency (framework)",
+                  "Reversion options",
+                ],
+              },
+            ],
+          },
+        },
+
+        ar: {
+          nav: {
+            home: "الرئيسية",
+            solutions: "الحلول",
+            ins: "تأمين",
+            re: "إعادة التأمين",
+            climate: "مخاطر المناخ",
+            services: "الخدمات الاستشارية",
+            esg: "الاستدامة",
+            contact: "اتصال",
+          },
+          title: "حلول التأمين",
+          subtitle:
+            "مساران: <strong>الشركات</strong> و<strong>الأفراد</strong>. منتجات وفق أفضل الممارسات (ممتلكات، نقل بضائع، أساطيل، مسؤولية، إنشاءات… / صحة، سكن، حياة وادخار، سفر شنغن، تقاعد).",
+          badges: ["مقارنة عروض السوق", "إدارة المطالبات", "شفافية كاملة"],
+          tabs: { corp: "الشركات", retail: "الأفراد" },
+          ui: {
+            clear: "مسح",
+            search: "ابحث…",
+            nores: "لا توجد منتجات مطابقة لبحثك.",
+          },
+          cta: {
+            quote: "اطلب عرضاً",
+            learn: "تعرّف أكثر",
+            more: "تحدث إلى مستشار",
+          },
+          footer: {
+            desc: "مكتب وساطة وإعادة تأمين مرخص من ACAPS<br/>المقر: 16، شارع تيرفيس، الطابق الثاني. حي مرس السلطان، الدار البيضاء",
+            links: "روابط",
+            contact: "اتصال",
+            contactBlock: {
+              tel: "هاتف 1 :",
+              tel2: "هاتف 2 :",
+              telNum1: "+٢١٢-٦٦٦-٧٥٦٩٩١",
+              telNum2: "+٢١٢-٦٧٥-٢٠٨٩٠٩",
+              nabil: "بريد نبيل الإلكتروني :",
+              infos: "معلومات عامة :",
+            },
+          },
+          filters: {
+            corp: [
+              ["all", "الكل"],
+              ["prop", "ممتلكات"],
+              ["trans", "نقل"],
+              ["fleet", "أساطيل"],
+              ["liab", "مسؤولية"],
+              ["const", "إنشاءات"],
+              ["health", "صحة"],
+            ],
+            retail: [
+              ["all", "الكل"],
+              ["health", "صحة"],
+              ["acc", "حوادث"],
+              ["home", "سكن"],
+              ["life", "حياة وادخار"],
+              ["travel", "سفر"],
+              ["ret", "تقاعد"],
+            ],
+          },
+          products: {
+            corp: [
+              {
+                id: "multirisques",
+                url: "Produits/multirisques.html",
+                img: "https://images.unsplash.com/photo-1531973576160-7125cd663d86?auto=format&fit=crop&w=1200&q=60",
+                cat: ["prop"],
+                t: "متعدد المخاطر للشركات",
+                p: "الممتلكات وخسارة الأرباح للمقار والمخازن والآلات.",
+                bul: [
+                  "حريق وتسرب مياه وكسر آلات",
+                  "خسارة الأرباح",
+                  "خيارات كوارث طبيعية ومناخ",
+                ],
+              },
+              {
+                id: "transport",
+                url: "Produits/transport.html",
+                img: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=60",
+                cat: ["trans"],
+                t: "نقل البضائع",
+                p: "يغطي الاستيراد/التصدير وسلاسل الإمداد.",
+                bul: [
+                  "جميع الأخطار للبضائع",
+                  "مسؤولية الناقل/المخلّص",
+                  "بارامترية للطقس (اختياري)",
+                ],
+              },
+              {
+                id: "flotte",
+                url: "Produits/flotte.html",
+                img: "https://images.unsplash.com/photo-1704488473677-ae044ef0d289?auto=format&fit=crop&w=1200&q=60",
+                cat: ["fleet"],
+                t: "السيارات والأساطيل",
+                p: "من 5 إلى 5000 مركبة، إدارة مطالبات وتتبع.",
+                bul: [
+                  "طرف ثالث/شامل/زجاج",
+                  "مساعدة على الطريق",
+                  "لوحات مؤشرات للمطالبات",
+                ],
+              },
+              {
+                id: "rc",
+                url: "Produits/rc.html",
+                img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=60",
+                cat: ["liab"],
+                t: "المسؤولية العامة/المهنية",
+                p: "عامة ومهنية وتلوث ومسؤولية المنتج.",
+                bul: [
+                  "أثناء التشغيل وبعد التسليم",
+                  "المسؤولية المهنية",
+                  "المسؤولية البيئية",
+                ],
+              },
+              {
+                id: "construction",
+                url: "Produits/construction.html",
+                img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=60",
+                cat: ["const"],
+                t: "الإنشاءات (CAR/EAR)",
+                p: "جميع أخطار المشاريع والضمانات اللاحقة حيث تنطبق.",
+                bul: [
+                  "بناء وطاقة وبنية تحتية",
+                  "تأخير المشروع/خسارة الأرباح",
+                  "تغطيات حسب المراحل",
+                ],
+              },
+              {
+                id: "santecollective",
+                url: "Produits/santecollective.html",
+                img: "https://images.unsplash.com/photo-1519494080410-f9aa76cb4283?auto=format&fit=crop&w=1200&q=60",
+                cat: ["health"],
+                t: "الصحة الجماعية والمزايا",
+                p: "برامج طبية ومخاطر للموظفين.",
+                bul: [
+                  "شبكات مقدمي الخدمة والدفع المباشر",
+                  "خطط حسب الدرجات",
+                  "تحكم في التكاليف والوقاية",
+                ],
+              },
+            ],
+            retail: [
+              {
+                id: "sante",
+                url: "Produits/sante.html",
+                img: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=1200&q=60",
+                cat: ["health"],
+                t: "الصحة",
+                p: "عيادات وتنويم ونظارات وأسنان.",
+                bul: ["شبكات شركاء ودفع مباشر", "خطط مرنة", "مساعدة 24/7"],
+              },
+              {
+                id: "alv",
+                url: "Produits/alv.html",
+                img: "https://images.unsplash.com/photo-1633158832532-f71e9c7ac6d6?auto=format&fit=crop&w=1200&q=60",
+                cat: ["acc"],
+                t: "حوادث الحياة",
+                p: "تعويض عن الحوادث المنزلية والترفيهية.",
+                bul: ["عوائد عجز", "راتب تعليم", "مساعدة منزلية"],
+              },
+              {
+                id: "habitation",
+                url: "Produits/habitation.html",
+                img: "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=60",
+                cat: ["home"],
+                t: "السكن (الممتلكات)",
+                p: "حريق وسرقة وتسرب مياه ومسؤولية خاصة.",
+                bul: [
+                  "قيمة جديدة حسب الخيارات",
+                  "حماية قانونية",
+                  "تغطية المقتنيات الثمينة",
+                ],
+              },
+              {
+                id: "vie",
+                url: "Produits/vie.html",
+                img: "https://images.unsplash.com/photo-1476703993599-0035a21b17a9?auto=format&fit=crop&w=1200&q=60",
+                cat: ["life"],
+                t: "تأمين الحياة والادخار",
+                p: "ادخار ونقل الثروة وتنمية رأس المال.",
+                bul: [
+                  "صناديق بالعملة المحلية ووحدات",
+                  "تحويلات وضريبة",
+                  "خيارات المستفيد",
+                ],
+              },
+              {
+                id: "schengen",
+                url: "Produits/schengen.html",
+                img: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&fit=crop&w=1200&q=60",
+                cat: ["travel"],
+                t: "سفر شنغن",
+                p: "شهادة مطابقة للتأشيرة ومساعدة.",
+                bul: [
+                  "نفقات طبية وإعادة للوطن",
+                  "أمتعة وتأخير",
+                  "قصير/طويل الأجل",
+                ],
+              },
+              {
+                id: "retraite",
+                url: "Produits/retraite.html",
+                img: "https://images.unsplash.com/photo-1562557082-7f2785d741e7?auto=format&fit=crop&w=1200&q=60",
+                cat: ["ret"],
+                t: "التقاعد",
+                p: "بناء دخل/ادخار طويل الأجل.",
+                bul: [
+                  "مساهمات مبرمجة",
+                  "كفاءة ضريبية (حسب الإطار)",
+                  "خيارات الاستحقاق",
+                ],
+              },
+            ],
+          },
+        },
+      };
+
+      /* ================== Helpers ================== */
+      let lang = localStorage.getItem("riskalia_lang") || "fr";
+      if (!["fr", "en", "ar"].includes(lang)) lang = "fr";
+      let seg = "corp";
+      let chip = "all";
+      let query = "";
+
+      const $ = (s, root = document) => root.querySelector(s);
+      const $$ = (s, root = document) => [...root.querySelectorAll(s)];
+      function t(path) {
+        const ns = path.split(".");
+        let cur = I18N[lang];
+        for (const n of ns) {
+          if (cur == null || !(n in cur)) return path;
+          cur = cur[n];
+        }
+        return cur;
+      }
+
+      /* ================== Render ================== */
+      function renderChips() {
+        const wrap = $("#chips");
+        wrap.innerHTML = "";
+        const items = t("filters." + seg);
+        (items || []).forEach(([id, label]) => {
+          const b = document.createElement("button");
+          b.className = "chip" + (chip === id ? " active" : "");
+          b.dataset.id = id;
+          b.type = "button";
+          b.textContent = label;
+          b.addEventListener("click", () => {
+            chip = id;
+            renderGrid();
+            highlightChip();
+          });
+          wrap.appendChild(b);
+        });
+      }
+      function highlightChip() {
+        $$("#chips .chip").forEach((c) =>
+          c.classList.toggle("active", c.dataset.id === chip)
+        );
+      }
+
+      function renderGrid() {
+        const grid = $("#grid");
+        grid.innerHTML = "";
+        const list = t("products." + seg) || [];
+        const q = query.trim().toLowerCase();
+
+        const filtered = list.filter((it) => {
+          const okCat = chip === "all" || it.cat.includes(chip);
+          const okText =
+            !q ||
+            it.t.toLowerCase().includes(q) ||
+            (it.p || "").toLowerCase().includes(q) ||
+            (it.bul || []).some((b) => b.toLowerCase().includes(q));
+          return okCat && okText;
+        });
+
+        if (filtered.length === 0) {
+          const p = document.createElement("p");
+          p.className = "muted";
+          p.textContent = t("ui.nores");
+          grid.appendChild(p);
+          return;
+        }
+
+        filtered.forEach((it) => {
+          const img =
+            it.img ||
+            "https://images.unsplash.com/photo-1508385082359-f38ae991e8f2?auto=format&fit=crop&w=1200&q=60";
+          const url = it.url || "contact.html";
+          const card = document.createElement("article");
+          card.className = "card";
+          card.innerHTML = `
+      <a href="${url}" aria-label="${it.t}">
+        <img class="illus" src="${img}" alt="">
+      </a>
+      <h3 style="margin-top:10px">${it.t}</h3>
+      <p class="muted">${it.p || ""}</p>
+      ${
+        it.bul && it.bul.length
+          ? `<ul class="muted" style="margin-top:4px;padding-left:16px">${it.bul
+              .map((x) => `<li>${x}</li>`)
+              .join("")}</ul>`
+          : ""
+      }
+      <div class="actions">
+        <a class="btn" href="${url}">${t("cta.learn")}</a>
+        <a class="btn secondary" href="contact.html">${t("cta.quote")}</a>
+      </div>
+    `;
+          grid.appendChild(card);
+        });
+      }
+
+      function applyTexts() {
+        document.documentElement.lang = lang;
+        document.body.dir = lang === "ar" ? "rtl" : "ltr";
+
+        $$("[data-i18n]").forEach((el) => (el.innerHTML = t(el.dataset.i18n)));
+
+        $$(".lang-btn").forEach((b) =>
+          b.classList.toggle("active", b.dataset.lang === lang)
+        );
+        $("#q").placeholder = t("ui.search");
+        renderChips();
+        renderGrid();
+
+        $$(".tab").forEach((b) =>
+          b.classList.toggle("active", b.dataset.seg === seg)
+        );
+      }
+
+      // Make translation functions available globally for components
+      window.applyI18n = applyTexts;
+      window.t = t;
+
+      /* ================== UI ================== */
+      function initUI() {
+        const toggle = $(".menu-toggle"),
+          menu = $("#menu");
+        if (toggle && menu) {
+          toggle.addEventListener("click", () => menu.classList.toggle("show"));
+        }
+
+        $$(".lang-btn").forEach((btn) =>
+          btn.addEventListener("click", () => {
+            lang = btn.dataset.lang;
+            localStorage.setItem("riskalia_lang", lang);
+            applyTexts();
+          })
+        );
+
+        $$("#tab-corp,#tab-retail").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            seg = btn.dataset.seg;
+            chip = "all";
+            query = "";
+            $("#q").value = "";
+            applyTexts();
+            btn.setAttribute("aria-selected", "true");
+            (btn.id === "tab-corp"
+              ? $("#tab-retail")
+              : $("#tab-corp")
+            ).setAttribute("aria-selected", "false");
+          });
+        });
+
+        $("#q").addEventListener("input", (e) => {
+          query = e.target.value;
+          renderGrid();
+        });
+        $("#clear").addEventListener("click", () => {
+          query = "";
+          $("#q").value = "";
+          renderGrid();
+        });
+
+        // reveal
+        const rev = $$(".reveal");
+        const onScroll = () => {
+          const tr = window.innerHeight * 0.9;
+          rev.forEach((el) => {
+            if (el.getBoundingClientRect().top < tr) el.classList.add("active");
+          });
+        };
+        window.addEventListener("scroll", onScroll);
+        onScroll();
+      }
+
+      // Dropdown accessibility + desktop/mobile behavior
+      (function () {
+        const li = document.querySelector("#menu li.dropdown");
+        const trigger = li?.querySelector("a.has-caret");
+        if (!li || !trigger) return;
+
+        function open() {
+          li.classList.add("open");
+          trigger.setAttribute("aria-expanded", "true");
+        }
+        function close() {
+          li.classList.remove("open");
+          trigger.setAttribute("aria-expanded", "false");
+        }
+
+        // Mobile: click toggles; Desktop: hover/focus already handled by CSS
+        function toggleMobile(e) {
+          if (window.innerWidth <= 900) {
+            e.preventDefault();
+            li.classList.toggle("open");
+            trigger.setAttribute(
+              "aria-expanded",
+              li.classList.contains("open") ? "true" : "false"
+            );
+          }
+        }
+        trigger.addEventListener("click", toggleMobile);
+
+        // Keyboard support
+        trigger.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            if (window.innerWidth <= 900) toggleMobile(e);
+            else open();
+          } else if (e.key === "Escape") {
+            close();
+            trigger.focus();
+          }
+        });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            close();
+          }
+        });
+
+        // Desktop hover deactivates on resize to mobile
+        window.addEventListener("resize", () => {
+          if (window.innerWidth > 900) {
+            close();
+          }
+        });
+      })();
+
+      /* init */
+      document.addEventListener("DOMContentLoaded", () => {
+        applyTexts();
+        initUI();
+      });
+    </script>
+
+    <!-- NAV SEARCH Scripts from index.html -->
+    <script>
+      /* 3.a Search index */
+      const NAV_SEARCH_INDEX = [
+        {
+          title: { fr: "Solutions", en: "Solutions", ar: "الحلول" },
+          url: "/solutions.html",
+          tags: ["entreprises", "particuliers", "assurance"],
+          lang: "all",
+        },
+        {
+          title: { fr: "Réassurance", en: "Reinsurance", ar: "إعادة التأمين" },
+          url: "/reinsurance.html",
+          tags: ["traités", "facultatives", "capacity"],
+          lang: "all",
+        },
+        {
+          title: {
+            fr: "Risques climatiques",
+            en: "Climate Risk",
+            ar: "مخاطر المناخ",
+          },
+          url: "/climate.html",
+          tags: ["tcfd", "issb", "paramétrique", "adaptation"],
+          lang: "all",
+        },
+        {
+          title: { fr: "ESG", en: "ESG", ar: "الاستدامة" },
+          url: "/esg.html",
+          tags: ["gouvernance", "social", "environnement"],
+          lang: "all",
+        },
+        {
+          title: {
+            fr: "Services de Conseil",
+            en: "Advisory Services",
+            ar: "الخدمات الاستشارية",
+          },
+          url: "/services.html",
+          tags: ["gestion des risques", "évaluation engagements", "formation"],
+          lang: "all",
+        },
+        {
+          title: {
+            fr: "Santé (Particuliers)",
+            en: "Health (Individuals)",
+            ar: "الصحة (الأفراد)",
+          },
+          url: "/Produits/sante.html",
+          tags: ["santé", "particuliers", "medical"],
+          lang: "all",
+        },
+        {
+          title: {
+            fr: "Accidents de la vie",
+            en: "Personal Accident",
+            ar: "حوادث الحياة",
+          },
+          url: "/Produits/alv.html",
+          tags: ["accident", "indemnité", "fractures", "hospitalisation"],
+          lang: "all",
+        },
+        {
+          title: {
+            fr: "Biens (Habitation)",
+            en: "Home (Property)",
+            ar: "السكن",
+          },
+          url: "/Produits/habitation.html",
+          tags: ["incendie", "dégâts des eaux", "vol"],
+          lang: "all",
+        },
+      ];
+
+      /* 3.b Placeholder helper */
+      function setSearchPlaceholder() {
+        const input = document.getElementById("nav-search-input");
+        if (!input) return;
+        const p =
+          typeof t === "function"
+            ? t("ui.search") || t("search.placeholder") || null
+            : null;
+        input.placeholder =
+          p ||
+          (document.documentElement.lang === "en"
+            ? "Search…"
+            : document.documentElement.lang === "ar"
+            ? "ابحث…"
+            : "Rechercher…");
+        input.setAttribute(
+          "aria-label",
+          input.placeholder.replace(/[.…]+$/, "")
+        );
+      }
+
+      /* 3.c Tiny matcher (title + tags) */
+      function navSearchFilter(q, lang) {
+        if (!q) return [];
+        const n = q.trim().toLowerCase();
+        const L = lang || document.documentElement.lang || "fr";
+        return NAV_SEARCH_INDEX.map((item) => {
+          const title = item.title[L] || item.title.fr || "";
+          const hay = [title]
+            .concat(item.tags || [])
+            .join(" ")
+            .toLowerCase();
+          const score = hay.includes(n)
+            ? 0
+            : hay.split(" ").some((w) => w.startsWith(n))
+            ? 1
+            : hay.indexOf(n) >= 0
+            ? 2
+            : 99;
+          return { item, title, score };
+        })
+          .filter((x) => x.score < 99)
+          .sort((a, b) => a.score - b.score)
+          .slice(0, 8)
+          .map((x) => x.item);
+      }
+
+      /* 3.d Render + keyboard loop */
+      (function initNavSearch() {
+        const box = document.querySelector(".nav-search");
+        const input = document.getElementById("nav-search-input");
+        const list = document.getElementById("nav-search-list");
+        if (!box || !input || !list) return;
+
+        setSearchPlaceholder();
+
+        let cur = -1; // highlighted index
+        let opts = []; // current results
+        let open = false; // panel state
+
+        function openList() {
+          if (!open) {
+            open = true;
+            box.setAttribute("aria-expanded", "true");
+            list.setAttribute("aria-hidden", "false");
+            list.style.display = "block";
+          }
+        }
+        function closeList() {
+          open = false;
+          cur = -1;
+          list.innerHTML = "";
+          box.setAttribute("aria-expanded", "false");
+          list.setAttribute("aria-hidden", "true");
+          list.style.display = "none";
+        }
+        function highlight(i) {
+          const nodes = [...list.querySelectorAll('[role="option"]')];
+          nodes.forEach((li, idx) =>
+            li.setAttribute("aria-selected", idx === i ? "true" : "false")
+          );
+          cur = i;
+        }
+        function go(iDelta) {
+          if (!opts.length) return;
+          const L = opts.length;
+          let i = (cur + iDelta + L) % L;
+          highlight(i);
+          const node = list.querySelectorAll('[role="option"]')[i];
+          node?.scrollIntoView({ block: "nearest" });
+        }
+        function commit(i) {
+          const target = opts[i];
+          if (!target) return;
+          window.location.assign(target.url);
+        }
+
+        function renderList(items) {
+          const L = document.documentElement.lang || "fr";
+          list.innerHTML = items
+            .map((opt, idx) => {
+              const displayUrl = opt.url.replace(/\.html$/, "");
+              return `<li role="option" id="nav-opt-${idx}" aria-selected="${
+                idx === 0 ? "true" : "false"
+              }" data-idx="${idx}">
+<span class="opt-kicker">${opt.title[L] || opt.title.fr}</span>
+<span class="opt-sub">${displayUrl}</span>
+</li>`;
+            })
+            .join("");
+          cur = items.length ? 0 : -1;
+          if (items.length) {
+            openList();
+            sizeDropdown();
+          } else {
+            closeList();
+          }
+        }
+
+        function render(q) {
+          opts = navSearchFilter(q, document.documentElement.lang);
+          renderList(opts);
+        }
+
+        function renderPopular() {
+          opts = NAV_SEARCH_INDEX.slice(0, 6);
+          renderList(opts);
+        }
+
+        function updateHasValue() {
+          box.toggleAttribute("data-has-value", !!input.value.trim());
+        }
+
+        list.addEventListener("mousemove", (e) => {
+          const li = e.target.closest('[role="option"]');
+          if (!li) return;
+          highlight(parseInt(li.dataset.idx, 10));
+        });
+        list.addEventListener("mousedown", (e) => {
+          const li = e.target.closest('[role="option"]');
+          if (!li) return;
+          e.preventDefault();
+          commit(parseInt(li.dataset.idx, 10));
+        });
+
+        input.addEventListener("input", () => {
+          updateHasValue();
+          const q = input.value.trim();
+          if (q.length >= 1) {
+            render(q);
+          } else {
+            renderPopular();
+          }
+        });
+
+        input.addEventListener("focus", () => {
+          updateHasValue();
+          const q = input.value.trim();
+          if (q.length >= 1) render(q);
+          else renderPopular();
+        });
+
+        document.addEventListener("click", (e) => {
+          if (!box.contains(e.target)) closeList();
+        });
+        input.addEventListener("blur", () => {
+          setTimeout(() => {
+            if (!box.contains(document.activeElement)) closeList();
+          }, 150);
+        });
+
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowDown") {
+            e.preventDefault();
+            if (!open) {
+              const q = input.value.trim();
+              q ? render(q) : renderPopular();
+            } else go(+1);
+          } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            if (open) go(-1);
+          } else if (e.key === "Enter") {
+            if (open && cur >= 0) {
+              e.preventDefault();
+              commit(cur);
+            }
+          } else if (e.key === "Escape") {
+            closeList();
+          } else if (e.key === "Tab" && open) {
+            e.preventDefault();
+            if (e.shiftKey) go(-1);
+            else go(+1);
+          }
+        });
+
+        document.addEventListener("DOMContentLoaded", setSearchPlaceholder);
+        (window._onLangChanged = function () {
+          setSearchPlaceholder();
+        })();
+      })();
+    </script>
+
+    <!-- Dropdown sizing/alignment helpers -->
+    <script>
+      function alignDropdown() {
+        const list = document.getElementById("nav-search-list");
+        const box = document.querySelector(".nav-search");
+        if (!list || !box) return;
+
+        list.style.left = "0";
+        list.style.right = "auto";
+
+        const r = list.getBoundingClientRect();
+        if (r.right > window.innerWidth) {
+          list.style.left = "auto";
+          list.style.right = "0";
+        }
+      }
+
+      /* Size to the longest suggestion (fallback if max-content isn't enough) */
+      function sizeDropdown() {
+        const list = document.getElementById("nav-search-list");
+        const box = document.querySelector(".nav-search");
+        if (!list || !box) return;
+
+        let widest = 0;
+        list.querySelectorAll('li[role="option"]').forEach((li) => {
+          widest = Math.max(widest, li.scrollWidth);
+        });
+
+        const boxRect = box.getBoundingClientRect();
+        const spaceRight = window.innerWidth - boxRect.left - 16; // margin
+        const maxAllowed = Math.min(spaceRight, 800, window.innerWidth * 0.9);
+        const minAllowed = box.clientWidth;
+
+        list.style.width =
+          Math.max(minAllowed, Math.min(widest + 20, maxAllowed)) + "px";
+        alignDropdown();
+      }
+
+      window.addEventListener("resize", () => {
+        const list = document.getElementById("nav-search-list");
+        if (list && list.getAttribute("aria-hidden") !== "true") {
+          sizeDropdown();
+        }
+      });
+    </script>
+
+    <!-- Component Scripts -->
+    <script src="assets/js/components/SearchComponent.js"></script>
+    <script src="assets/js/components/NavigationComponent.js"></script>
+    <script src="assets/js/components/FooterComponent.js"></script>
+
+    <!-- Initialize Components -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize Navigation Component
+        if (typeof NavigationComponent !== "undefined") {
+          const nav = new NavigationComponent("navigation-container");
+          nav.init();
+
+          // Make navigation component available globally for language changes
+          window.navigationComponent = nav;
+        }
+
+        // Initialize Footer Component
+        if (typeof FooterComponent !== "undefined") {
+          const footer = new FooterComponent("footer-container");
+          footer.init();
+
+          // Make footer component available globally for language changes
+          window.footerComponent = footer;
+        }
+
+        // Listen for language changes from the navigation component
+        document.addEventListener("languageChanged", function (e) {
+          if (e.detail && e.detail.language) {
+            // Update the global language variable
+            lang = e.detail.language;
+
+            // Call the existing language change function
+            if (typeof applyTexts === "function") {
+              applyTexts();
+            }
+
+            // Update footer component translations
+            if (
+              window.footerComponent &&
+              typeof window.footerComponent.updateTranslations === "function"
+            ) {
+              window.footerComponent.updateTranslations();
+            }
+
+            // Call any other language change handlers
+            if (typeof window._onLangChanged === "function") {
+              window._onLangChanged();
+            }
+          }
+        });
+      });
+
+      // Update components when language changes from other sources
+      const originalOnLangChanged = window._onLangChanged;
+      window._onLangChanged = function () {
+        // Call original language change handler
+        if (originalOnLangChanged) {
+          originalOnLangChanged();
+        }
+
+        // Update navigation component
+        if (window.navigationComponent) {
+          const currentLang = localStorage.getItem("riskalia_lang") || "fr";
+          window.navigationComponent.updateLanguage(currentLang);
+        }
+
+        // Update footer component
+        if (
+          window.footerComponent &&
+          typeof window.footerComponent.updateTranslations === "function"
+        ) {
+          window.footerComponent.updateTranslations();
+        }
+      };
+    </script>
+  </body>
+</html>
